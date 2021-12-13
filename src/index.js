@@ -50,8 +50,8 @@ app.listen(PORT, () => {
 
 //routers
 router.get('/', (req, res) => {res.send('API-VEGAN-EAT')})
-router.get("/api/products", (req, res) => getProducts(req, res))
-router.get("/api/products/:id", (req, res) => getProductID(req, res))
+router.get('/api/products', (req, res) => getProducts(req, res))
+router.get('/api/products/:id', (req, res) => getProductID(req, res))
 router.post("/api/create", [verifyToken, isAdmin] ,(req, res) => setProduct(req, res))
 router.put('/api/update/:id', [verifyToken, isAdmin], (req, res) => updateProduct(req, res))
 router.put('/api/update-stock/:id',[verifyToken, isAdmin], (req, res) => updateStock(req, res))
