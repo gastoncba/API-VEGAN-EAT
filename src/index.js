@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
+//funciones
 const {getProducts, setProduct, updateProduct, deleteProduct, updateStock, getProductID} = require('../controllers/ProductController')
 const {login, register, getUsers} =  require('../controllers/UserController')
 const {verifyToken, isAdmin} =  require('../middleware/authJwt')
