@@ -94,24 +94,24 @@ const login = async (req, res) => {
     const {nickname, password} = req.body
 
     if(!nickname) {
-        return res.status(400).json({error:'nickname requerido'})
+        return res.json({error:'nickname requerido'})
     }
 
     if(!password) {
-        return res.status(400).json({error:'contraseña requerida'})
+        return res.json({error:'contraseña requerida'})
     }
     
     //verficamos si el usuario se encuentra registrado 
     const userDB = await User.findOne({nickname: nickname})
     if (!userDB) {
-        return res.status(400).json({error:'Usuario no encontrado'})
+        return res.json({error:'Usuario no encontrado'})
     }
 
     //se verifica la constraseña 
     const validPassword = await bcrypt.compare(password, userDB.password)
 
     if(!validPassword) {
-        return res.status(400).json({error: 'Constraseña incorrecta'})
+        return res.json({error: 'Constraseña incorrecta'})
     }
 
     const token = jwt.sign({
