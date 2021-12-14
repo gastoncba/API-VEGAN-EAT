@@ -61,7 +61,8 @@ const updateProduct = async (req, res) => {
         await Product.updateOne({_id:id}, {
             $set:{
                 name: body.name, 
-                desc: body.desc, 
+                desc: body.desc,
+                img: body.img, 
                 price: body.price, 
                 stock: body.stock, 
             }  
