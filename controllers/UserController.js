@@ -5,11 +5,11 @@ const jwt = require('jsonwebtoken')
 const Joi = require('@hapi/joi');
 
 const validatorRegister = Joi.object({
-    name: Joi.string().min(6).max(255).required(),
-    lastName: Joi.string().min(6).max(255).required(),
-    nickname: Joi.string().min(6).max(255).required(),
-    password: Joi.string().min(6).max(1024).required(),
-    email: Joi.string().min(6).max(255).required().email(),
+    name: Joi.string().min(3).max(15).required(),
+    lastName: Joi.string().min(3).max(20).required(),
+    nickname: Joi.string().min(3).max(15).required(),
+    password: Joi.string().min(3).max(15).required(),
+    email: Joi.string().min(3).max(255).required().email(),
     roles: Joi.array()
 })
 
@@ -17,13 +17,27 @@ const validatorRegister = Joi.object({
 const getUsers = async (req, res) => {
     try {
         const users = await User.find();
-        console.log(users)
         res.json(users)
     }
     catch(e) {
-        res.send('error: ' + e)
+        res.send(`error: ${e}`)
     }
 }
+
+const deleteUser = async (req, res) => {
+
+    const {params, body} = req
+    const {id} = params
+
+    try {
+        await Product.deleteOne({_id:id})
+        res.send(`se elimino el usuario de nombre de usuario: ${body.nickname}`)
+    }
+
+    catch(e) {
+        res.send(`error: ${e}`)
+    }
+} 
 
 const register = async (req, res) => {
 
@@ -36,7 +50,13 @@ const register = async (req, res) => {
     }
 
     const {name, lastName, nickname, email, password, roles} = body
-    console.log(roles)
+    
+    //verificamos si el nickname ya fue registrado
+    const nicknameDB = await User.findOne({nickname: nickname})
+    if(nicknameDB) {
+        return res.status(400).json({error:'Nombre de usuario ya registrado'})
+    }
+
     //aca verificamos si el email del usuario ya fue registrado
     const emailDB = await User.findOne({email: email})
     if (emailDB) {
@@ -127,5 +147,6 @@ const login = async (req, res) => {
 module.exports = {
     register, 
     login, 
-    getUsers
+    getUsers,
+    deleteUser
 }

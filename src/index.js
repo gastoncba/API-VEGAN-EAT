@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 
 //funciones
 const {getProducts, setProduct, updateProduct, deleteProduct, updateStock, getProductID} = require('../controllers/ProductController')
-const {login, register, getUsers} =  require('../controllers/UserController')
+const {login, register, getUsers, deleteUser} =  require('../controllers/UserController')
 const {verifyToken, isAdmin} =  require('../middleware/authJwt')
 const createRoles = require('../libs/initialSetup')
 
@@ -59,4 +59,6 @@ router.delete('/api/delete/:id', [verifyToken, isAdmin], (req, res) => deletePro
 
 router.post('/api/register', (req, res) => register(req, res))
 router.post('/api/login', (req, res) => login(req, res))
+
 router.get('/api/users', (req, res) => getUsers(req, res))
+router.delete('/api/users/delete/:id',(res,req) => deleteUser(req, res))
