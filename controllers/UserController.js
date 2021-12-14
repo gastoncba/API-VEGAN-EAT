@@ -26,12 +26,14 @@ const getUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
 
-    const {params, body} = req
+    const {params} = req
     const {id} = params
-
+    
     try {
-        await User.deleteOne({_id:id})
-        res.send(`se elimino el usuario de nombre de usuario: ${body.nickname}`)
+        const user = await User.deleteOne({_id:id})
+        if(user.deletedCount) return res.send(`se elimino el usuario de id: ${id}`)
+        
+        res.send(`El usuario de id: ${id} no existe o fue eliminado`)
     }
 
     catch(e) {

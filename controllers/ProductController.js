@@ -107,8 +107,10 @@ const deleteProduct = async (req, res) => {
     const {id} = params
 
     try {
-        await Product.deleteOne({_id:id})
-        res.send(`se elimino el producto de id: ${id}`)
+        const prod = await Product.deleteOne({_id:id})
+        if(prod.deletedCount) return res.send(`Se elimino el producto de id: ${id}`)
+        
+        res.send(`El producto de id: ${id} no existe o fue eliminado`)
     }
 
     catch(e) {

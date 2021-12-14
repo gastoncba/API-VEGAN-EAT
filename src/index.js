@@ -61,4 +61,4 @@ router.post('/api/register', (req, res) => register(req, res))
 router.post('/api/login', (req, res) => login(req, res))
 
 router.get('/api/users', (req, res) => getUsers(req, res))
-router.delete('/api/users/delete/:id',(res,req) => deleteUser(req, res))
+router.delete('/api/users/delete/:id', (req, res) => deleteUser(req, res))
