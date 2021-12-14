@@ -30,7 +30,7 @@ const deleteUser = async (req, res) => {
     const {id} = params
 
     try {
-        await Product.deleteOne({_id:id})
+        await User.deleteOne({_id:id})
         res.send(`se elimino el usuario de nombre de usuario: ${body.nickname}`)
     }
 
