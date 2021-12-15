@@ -52,8 +52,8 @@ app.listen(PORT, () => {
 router.get('/', (req, res) => {res.send('API-VEGAN-EAT')})
 router.get('/api/products', (req, res) => getProducts(req, res))
 router.get('/api/products/:id', (req, res) => getProductID(req, res))
-router.post("/api/create", [verifyToken, isAdmin] ,(req, res) => setProduct(req, res))
-router.put('/api/update/:id', [verifyToken, isAdmin], (req, res) => updateProduct(req, res))
+router.post("/api/create", (req, res) => setProduct(req, res))
+router.put('/api/update/:id', (req, res) => updateProduct(req, res))
 router.put('/api/update-stock/:id', (req, res) => updateStock(req, res))
 router.delete('/api/delete/:id', (req, res) => deleteProduct(req, res))
 
