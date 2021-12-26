@@ -139,7 +139,7 @@ const login = async (req, res) => {
     const token = jwt.sign({
         name: userDB.name,
         id: userDB._id
-    }, process.env.TOKEN_SECRET, {expiresIn: 86400}) //24 horas)
+    }, process.env.TOKEN_SECRET, {expiresIn: 10800}) //24 horas)
     
     res.header('auth-token', token).json({
         data: {token}
