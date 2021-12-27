@@ -101,7 +101,7 @@ const register = async (req, res) => {
         }, process.env.TOKEN_SECRET, {expiresIn: 86400}) //24 horas
         
         res.header('auth-token', token).json({
-            data: {token}
+            data: {token, user: oUser}
         })
     }
 
@@ -142,7 +142,7 @@ const login = async (req, res) => {
     }, process.env.TOKEN_SECRET, {expiresIn: 10800}) //24 horas)
     
     res.header('auth-token', token).json({
-        data: {token}
+        data: {token, user: userDB}
     })
 }
 
