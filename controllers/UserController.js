@@ -87,7 +87,6 @@ const register = async (req, res) => {
                 return res.status(400).json({error:'Rol Inexistente'})
             }
         } else {
-            console.log('hola')
             const foundRole = await Role.findOne({name:'cliente'})
             oUser.roles = [foundRole._id]
         }
