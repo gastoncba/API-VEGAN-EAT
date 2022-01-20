@@ -76,10 +76,14 @@ const deleteOrder = async (req, res) => {
 
     try {
         const userFind = await User.findOne({orders: id})
-        const {_id} = userFind
-        await User.updateOne({_id:_id},{
-            $pull:{orders: id}
-        })
+
+        //preguntamos si tiene un usuario asiociado
+        if(userFind) {
+            const {_id} = userFind
+            await User.updateOne({_id:_id},{
+                $pull:{orders: id}
+            })
+        }
     
         const orderDel = await Order.deleteOne({_id:id})
 
