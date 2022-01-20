@@ -1,5 +1,6 @@
 const Order = require('../models/OrderModel')
 const Pay = require('../models/PayModel')
+const User = require('../models/UserModel') 
 
 const getOrders = async (req, res) => {
     try {
@@ -69,8 +70,31 @@ const updateStateOrder = async (req, res) => {
     }
 }
 
+const deleteOrder = async (req, res) => {
+    const {params} = req
+    const {id} = params
+
+    try {
+        const userFind = await User.findOne({orders: id})
+        const {_id} = userFind
+        await User.updateOne({_id:_id},{
+            $pull:{orders: id}
+        })
+    
+        const orderDel = await Order.deleteOne({_id:id})
+
+        if(orderDel.deletedCount) return res.send(`Se elimino la orden de id: ${id}`)
+        res.send(`La orden de id: ${id} no existe o fue eliminada`)
+    }
+
+    catch(e) {
+        res.status(400).json({error: e.message})
+    }
+}
+
 module.exports = {
     getOrders,
     setOrder,
-    updateStateOrder
+    updateStateOrder,
+    deleteOrder
 }
