@@ -34,14 +34,19 @@ const setProduct = async (req, res) => {
     if(error) {
         return res.status(400).json({error: error.message})
     }
-    try{
-        await oProduct.save()
-        res.send(`Producto agregado`)
-    } 
+    // try{
+    //     await oProduct.save()
+    //     res.send(`Producto agregado`)
+    // } 
 
-     catch(e) {
-        res.status(400).json({error: e.message})
-    }
+    //  catch(e) {
+    //     res.status(400).json({error: e.message})
+    // }
+    oProduct.save()
+    .then(newProduct => {
+        res.status(200).json({message: 'Producto agregado', product: newProduct})
+    })
+    .catch((e) => res.status(400).json({error: e.message}))
 }
 
 const updateProduct = async (req, res) => {

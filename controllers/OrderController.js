@@ -32,12 +32,12 @@ const setOrder = async (req, res) => {
 
     if(error) return res.status(400).json({error: error.message})
 
-    try {
-        await oOrder.save()
-        res.send('Orden agregada')
-    } catch (e) {
-        res.status(400).json({error: e.message})
-    }
+    oOrder.save()
+    .then(newOrder => {
+        res.status(200).json({message: 'se agrego orden', order: newOrder})
+    })
+    .catch((e) => res.status(400).json({error: e.message}))
+    
 }
 
 const updateStateOrder = async (req, res) => {
