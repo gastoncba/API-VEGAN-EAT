@@ -1,5 +1,6 @@
 const User = require('../models/UserModel')
 const Role = require('../models/RoleModel')
+const Order = require('../models/OrderModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const Joi = require('@hapi/joi');
@@ -105,7 +106,7 @@ const register = async (req, res) => {
     }
 
     catch(e) {
-        res.status(400)
+        res.status(400).json({error: e.message})
     }
 } 
 
@@ -145,9 +146,43 @@ const login = async (req, res) => {
     })
 }
 
+const setOrderUser = async (req, res) => {
+    const {params, body} = req
+    const {id} = params
+
+    if(!body.orderID) return res.status(400).json({error: 'Order is required'})
+
+    try {
+        await User.updateOne({_id:id}, {
+            $push: {orders: body.orderID}
+        })
+        res.send(`se agrego una nueva order al usuario de id: ${id}`)
+    } catch (e) {
+        res.status(400).json({error: e.message})
+    }
+
+}
+
+const getOrdersUser = async (req, res) => {
+    const {params} = req
+    const {id} = params
+
+    try {
+        const userFind = await User.findById(id)
+        const ordersID = userFind.orders 
+        const ordersFind = await Order.find({_id: {$in:ordersID}})
+        res.json(ordersFind)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+
+}
+
 module.exports = {
     register, 
     login, 
     getUsers,
-    deleteUser
+    deleteUser,
+    setOrderUser,
+    getOrdersUser
 }

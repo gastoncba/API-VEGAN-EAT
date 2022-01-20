@@ -3,10 +3,6 @@ const routerApi = require('../router')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-//funciones
-// const {getProducts, setProduct, updateProduct, deleteProduct, updateStock, getProductID} = require('../controllers/ProductController')
-// const {login, register, getUsers, deleteUser} =  require('../controllers/UserController')
-// const {verifyToken, isAdmin} =  require('../middleware/authJwt')
 const {createRoles, createPayments} = require('../libs/initialSetup')
 
 //conectamos con mongoose
@@ -53,15 +49,3 @@ app.listen(PORT, () => {
 //routers
 router.get('/', (req, res) => {res.send('API-VEGAN-EAT')})
 routerApi(app)
-// router.get('/api/products', (req, res) => getProducts(req, res))
-// router.get('/api/products/:id', (req, res) => getProductID(req, res))
-// router.post('/api/create', [verifyToken, isAdmin], (req, res) => setProduct(req, res))
-// router.put('/api/update/:id', [verifyToken, isAdmin] ,(req, res) => updateProduct(req, res))
-// router.put('/api/update-stock/:id', (req, res) => updateStock(req, res))
-// router.delete('/api/delete/:id', [verifyToken, isAdmin] ,(req, res) => deleteProduct(req, res))
-
-// router.post('/api/register', (req, res) => register(req, res))
-// router.post('/api/login', (req, res) => login(req, res))
-
-// router.get('/api/users', (req, res) => getUsers(req, res))
-// router.delete('/api/users/delete/:id', (req, res) => deleteUser(req, res))

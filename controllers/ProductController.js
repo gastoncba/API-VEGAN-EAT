@@ -7,7 +7,7 @@ const getProducts =  async (req, res) => {
         res.json(products)
     }
     catch(e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 
@@ -21,7 +21,7 @@ const getProductID = async (req, res) => {
         res.json(product)
     }   
     catch(e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 
@@ -40,7 +40,7 @@ const setProduct = async (req, res) => {
     } 
 
      catch(e) {
-         res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 
@@ -71,15 +71,14 @@ const updateProduct = async (req, res) => {
     } 
 
     catch(e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 
 const updateStock = async (req, res) => {
 
-    const {params} = req
+    const {params, body} = req
     const {id} = params
-    const {body} = req
 
     if(!body.stock || !Number.isInteger(body.stock)) {
         return res.status(400).json({error: 'field stock is required and Integer'})
@@ -88,7 +87,6 @@ const updateStock = async (req, res) => {
     try {
         await Product.updateOne({_id:id}, {
             $set:{ 
-                //se le asiga el nuevo stock
                 stock: body.stock, 
             }  
         })
@@ -97,7 +95,7 @@ const updateStock = async (req, res) => {
     } 
 
     catch(e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 
@@ -114,7 +112,7 @@ const deleteProduct = async (req, res) => {
     }
 
     catch(e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 

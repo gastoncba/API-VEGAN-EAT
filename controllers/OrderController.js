@@ -6,7 +6,7 @@ const getOrders = async (req, res) => {
         const orders = await Order.find() 
         res.json(orders)
     } catch (e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
     }
 }
 
@@ -35,11 +35,42 @@ const setOrder = async (req, res) => {
         await oOrder.save()
         res.send('Orden agregada')
     } catch (e) {
-        res.send(e)
+        res.status(400).json({error: e.message})
+    }
+}
+
+const updateStateOrder = async (req, res) => {
+    
+    const {params, body} = req
+    const {id} = params
+    let stateName = ''
+
+    if(body.state !== true && body.state !== false) {
+        return res.status(400).json({error: 'entregado is required'})
+    } 
+
+    if(body.state) {
+        stateName = 'entregado'
+    } else {
+        stateName = 'pendiente'
+    }
+
+    try {
+        await Order.updateOne({_id:id}, {
+            $set:{
+                entregado: body.state
+            }  
+        })
+
+        res.send(`se modifico la orden de id: ${id} al estado ${stateName}`)
+        
+    } catch (e) {
+        res.status(400).json({error: e.message})
     }
 }
 
 module.exports = {
     getOrders,
-    setOrder
+    setOrder,
+    updateStateOrder
 }

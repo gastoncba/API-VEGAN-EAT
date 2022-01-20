@@ -31,6 +31,10 @@ const userSchema = new Schema({
     roles: [{
         ref: 'role', //el "ref" el para hacer referencia o esta relacionado con otro modelo de datos 
         type: Schema.Types.ObjectId
+    }],
+    orders: [{
+        ref:'order',
+        type: Schema.Types.ObjectId
     }]
 
 }, {versionKey: false}) 
