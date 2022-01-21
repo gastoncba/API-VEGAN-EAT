@@ -36,17 +36,12 @@ const setProduct = async (req, res) => {
     }
     try{
         await oProduct.save()
-        res.send(`Producto agregado`)
+        res.send(`Producto agregado con éxito`)
     } 
 
      catch(e) {
         res.status(400).json({error: e.message})
     }
-    // oProduct.save()
-    // .then(newProduct => {
-    //     res.status(200).json({message: 'Producto agregado', product: newProduct})
-    // })
-    // .catch((e) => res.status(400).json({error: e.message}))
 }
 
 const updateProduct = async (req, res) => {
@@ -72,7 +67,7 @@ const updateProduct = async (req, res) => {
                 stock: body.stock, 
             }  
         })
-        res.send(`se modifico el producto de id: ${id}`)
+        res.send(`Producto modificado con éxito`)
     } 
 
     catch(e) {
@@ -111,7 +106,7 @@ const deleteProduct = async (req, res) => {
 
     try {
         const prod = await Product.deleteOne({_id:id})
-        if(prod.deletedCount) return res.send(`Se elimino el producto de id: ${id}`)
+        if(prod.deletedCount) return res.send(`Producto eliminado con éxito`)
         
         res.send(`El producto de id: ${id} no existe o fue eliminado`)
     }
