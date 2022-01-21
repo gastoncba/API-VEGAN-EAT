@@ -52,6 +52,11 @@ const orderSchema = new Schema({
         type: Boolean,
         required: true
     }, 
+    monto: 
+    {
+        type: Number,
+        required: true
+    }
 
 }, {versionKey: false})
 
