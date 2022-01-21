@@ -63,7 +63,7 @@ const updateStateOrder = async (req, res) => {
             }  
         })
 
-        res.send(`se modifico la orden de id: ${id} al estado ${stateName}`)
+        res.send(`Se modifico la orden al estado ${stateName}`)
         
     } catch (e) {
         res.status(400).json({error: e.message})
@@ -87,8 +87,8 @@ const deleteOrder = async (req, res) => {
     
         const orderDel = await Order.deleteOne({_id:id})
 
-        if(orderDel.deletedCount) return res.send(`Se elimino la orden de id: ${id}`)
-        res.send(`La orden de id: ${id} no existe o fue eliminada`)
+        if(orderDel.deletedCount) return res.send(`Se elimino la orden`)
+        res.send(`La orden de no existe o fue eliminada`)
     }
 
     catch(e) {

@@ -91,7 +91,7 @@ const updateStock = async (req, res) => {
             }  
         })
 
-        res.send(`se modifico el stock del producto de id: ${id}`)
+        res.send(`Se modifico el stock del producto`)
     } 
 
     catch(e) {
@@ -108,7 +108,7 @@ const deleteProduct = async (req, res) => {
         const prod = await Product.deleteOne({_id:id})
         if(prod.deletedCount) return res.send(`Producto eliminado con éxito`)
         
-        res.send(`El producto de id: ${id} no existe o fue eliminado`)
+        res.send(`El producto no existe o fue eliminado`)
     }
 
     catch(e) {

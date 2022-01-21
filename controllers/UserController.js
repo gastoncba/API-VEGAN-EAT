@@ -32,9 +32,9 @@ const deleteUser = async (req, res) => {
     
     try {
         const user = await User.deleteOne({_id:id})
-        if(user.deletedCount) return res.send(`se elimino el usuario de id: ${id}`)
+        if(user.deletedCount) return res.send(`Se elimino al usuario`)
         
-        res.send(`El usuario de id: ${id} no existe o fue eliminado`)
+        res.send(`El usuario no existe o fue eliminado`)
     }
 
     catch(e) {
@@ -156,7 +156,7 @@ const setOrderUser = async (req, res) => {
         await User.updateOne({_id:id}, {
             $push: {orders: body.orderID}
         })
-        res.send(`se agrego una nueva order al usuario de id: ${id}`)
+        res.send(`Se agrego una nueva order al usuario`)
     } catch (e) {
         res.status(400).json({error: e.message})
     }
