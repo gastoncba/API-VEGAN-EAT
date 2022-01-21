@@ -56,6 +56,16 @@ const orderSchema = new Schema({
     {
         type: Number,
         required: true
+    }, 
+    products: {
+        type: Array,
+        required: true,
+        validate: {
+            validator: function(v) {
+                return v.length !== 0
+            }, 
+            message: 'Products is required'
+        }
     }
 
 }, {versionKey: false})
