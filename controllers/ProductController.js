@@ -80,7 +80,7 @@ const updateStock = async (req, res) => {
     const {params, body} = req
     const {id} = params
 
-    if(!body.stock || !Number.isInteger(body.stock)) {
+    if(body.stock === undefined || !Number.isInteger(body.stock)) {
         return res.status(400).json({error: 'field stock is required and Integer'})
     }
 
