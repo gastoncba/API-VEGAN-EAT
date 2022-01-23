@@ -37,7 +37,15 @@ const productSchema = new Schema({
               },
             required:true, 
             min: 0
-        }
+        },
+
+    points: 
+    {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 5
+    }
 }, {versionKey: false})
 
 const Product = model('product', productSchema)

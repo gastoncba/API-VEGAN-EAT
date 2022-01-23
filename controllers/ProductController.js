@@ -65,6 +65,7 @@ const updateProduct = async (req, res) => {
                 img: body.img, 
                 price: body.price, 
                 stock: body.stock, 
+                points: body.points
             }  
         })
         res.send(`Producto modificado con éxito`)
